@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 
-import Icons from "./Icons";
+import Icons from "./LiteIcons";
 import CCInput from "./CCInput";
 import { InjectedProps } from "./connectToState";
 
@@ -18,11 +18,13 @@ const INFINITE_WIDTH = 1000;
 
 const s = StyleSheet.create({
   container: {
-    paddingLeft: 10,
-    paddingRight: 10,
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
+    backgroundColor: '#efeeee',
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 8,
   },
   icon: {
     width: 48,
@@ -43,21 +45,33 @@ const s = StyleSheet.create({
     flexDirection: "row",
   },
   last4: {
+    minWidth: 60,
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   numberInput: {
     width: INFINITE_WIDTH,
   },
   expiryInput: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    textAlign: 'center',
     width: 80,
+    minWidth: 80,
   },
   cvcInput: {
-    width: 80,
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    textAlign:'right',
+    maxWidth: 80,
+    minWidth: 50
   },
   last4Input: {
     width: 60,
-    marginLeft: 20,
+    marginLeft: 10,
+    // flex: 1,
   },
   input: {
     height: 40,
@@ -149,8 +163,8 @@ export default class LiteCreditCardInput extends Component {
           showRightPart ? s.hidden : s.expanded,
         ]}>
           <CCInput {...this._inputProps("number")}
-            keyboardType="numeric"
-            containerStyle={s.numberInput} />
+                   keyboardType="numeric"
+                   containerStyle={s.numberInput} />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
           <Image style={s.icon} source={Icons[this._iconToShow()]} />
@@ -160,21 +174,23 @@ export default class LiteCreditCardInput extends Component {
           showRightPart ? s.expanded : s.hidden,
         ]}>
           <TouchableOpacity onPress={this._focusNumber}
-            style={s.last4}>
+                            style={s.last4}>
             <View pointerEvents={"none"}>
               <CCInput field="last4"
-                keyboardType="numeric"
-                value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
-                inputStyle={[s.input, inputStyle]}
-                containerStyle={[s.last4Input]} />
+                       keyboardType="numeric"
+                       value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+                       inputStyle={[s.input, inputStyle]}
+                       containerStyle={[s.last4Input]} />
             </View>
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
-            keyboardType="numeric"
-            containerStyle={s.expiryInput} />
+                   keyboardType="numeric"
+                   containerStyle={s.expiryInput}
+                   styleInput={{textAlign:'right'}} />
           <CCInput {...this._inputProps("cvc")}
-            keyboardType="numeric"
-            containerStyle={s.cvcInput} />
+                   keyboardType="numeric"
+                   containerStyle={s.cvcInput}
+                   styleInput={{textAlign:'right'}} />
         </View>
       </View>
     );

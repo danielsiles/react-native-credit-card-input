@@ -68,32 +68,32 @@ export default class CCInput extends Component {
 
   render() {
     const { label, value, placeholder, status, keyboardType,
-            containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+      containerStyle, inputStyle, labelStyle,
+      validColor, invalidColor, placeholderColor,
+      additionalInputProps } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
-        activeOpacity={0.99}>
+                        activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
-            {...additionalInputProps}
-            keyboardType={keyboardType}
-            autoCapitalise="words"
-            autoCorrect={false}
-            style={[
-              s.baseInputStyle,
-              inputStyle,
-              ((validColor && status === "valid") ? { color: validColor } :
-              (invalidColor && status === "invalid") ? { color: invalidColor } :
-              {}),
-            ]}
-            underlineColorAndroid={"transparent"}
-            placeholderTextColor={placeholderColor}
-            placeholder={placeholder}
-            value={value}
-            onFocus={this._onFocus}
-            onChangeText={this._onChange} />
+                     {...additionalInputProps}
+                     keyboardType={keyboardType}
+                     autoCapitalise="words"
+                     autoCorrect={false}
+                     style={[
+                       s.baseInputStyle,
+                       inputStyle,
+                       ((validColor && status === "valid") ? { color: validColor } :
+                         (invalidColor && status === "invalid") ? { color: invalidColor } :
+                           this.props.styleInput),
+                     ]}
+                     underlineColorAndroid={"transparent"}
+                     placeholderTextColor={placeholderColor}
+                     placeholder={placeholder}
+                     value={value}
+                     onFocus={this._onFocus}
+                     onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>
     );
